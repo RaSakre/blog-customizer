@@ -17,10 +17,10 @@ import {
 } from 'src/constants/articleProps';
 
 type PropsType = {
-	setProps: (articleState: ArticleStateType) => void;
+	setArticleOptions: (articleState: ArticleStateType) => void;
 };
 
-export const ArticleParamsForm = ({ setProps }: PropsType) => {
+export const ArticleParamsForm = ({ setArticleOptions }: PropsType) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const formRef = useRef<HTMLDivElement>(null);
 	const defaultFont = defaultArticleState.fontFamilyOption;
@@ -50,7 +50,7 @@ export const ArticleParamsForm = ({ setProps }: PropsType) => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, [isOpen, formRef]);
-	function setPropsToDefault(evt: FormEvent) {
+	function setOptionsToDefault(evt: FormEvent<HTMLFormElement>) {
 		evt.preventDefault();
 		const properties = {
 			fontFamilyOption: defaultFont,
@@ -59,9 +59,9 @@ export const ArticleParamsForm = ({ setProps }: PropsType) => {
 			contentWidth: defaultContentWidth,
 			fontSizeOption: defaultFontSize,
 		};
-		setProps(properties);
+		setArticleOptions(properties);
 	}
-	function handleSubmit(evt: FormEvent) {
+	function setOptions(evt: FormEvent) {
 		evt.preventDefault();
 		const properties = {
 			fontFamilyOption: fontFamily,
@@ -70,7 +70,7 @@ export const ArticleParamsForm = ({ setProps }: PropsType) => {
 			contentWidth: contentWidth,
 			fontSizeOption: fontSize,
 		};
-		setProps(properties);
+		setArticleOptions(properties);
 	}
 
 	return (
@@ -81,8 +81,8 @@ export const ArticleParamsForm = ({ setProps }: PropsType) => {
 					isOpen ? styles.container_open : ''
 				}`}>
 				<form
-					onSubmit={handleSubmit}
-					onReset={setPropsToDefault}
+					onSubmit={setOptions}
+					onReset={setOptionsToDefault}
 					className={styles.form}>
 					<Text
 						weight={800}
